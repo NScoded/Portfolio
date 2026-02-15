@@ -21,7 +21,7 @@ export default function Contact() {
     },
     {
       name: "Instagram",
-      desc: "Personal",
+      desc: "Personal Personal",
       logo: "/logos/instagram.png",
       link: "https://instagram.com/thenileshsahu"
     },
@@ -36,6 +36,13 @@ export default function Contact() {
       desc: "Language Learning",
       logo: "/logos/duolingo.png",
       link: "https://www.duolingo.com/profile/Nilesh070501"
+    },
+    {
+      
+      name: "Lyfta",
+      desc: "Workout Profile",
+      logo: "/logos/lyfta.png",
+      link: "https://lyfta.app/profile/user/6hp0d"
     }
   ];
 
