@@ -24,7 +24,7 @@ export default function Projects() {
   {
     title: "Lyfta Fitness Analytics Dashboard",
     desc:
-      "A secure API-integrated fitness analytics dashboard built using React and Vercel serverless functions. Features smart date formatting, Sunday-safe streak logic, workout heatmap visualization, and protected API key architecture.",
+  "Built a modern fitness dashboard using Lyfta API to display my workouts and track my streak progress.",
     link: "https://lyfta-pi.vercel.app/",
     logo: "/logos/lyfta.png"
   },
