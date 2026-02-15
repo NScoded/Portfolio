@@ -4,7 +4,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center px-6 py-24"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-10 py-16 sm:py-20 md:py-24"
     >
       <motion.div
         initial={{ opacity: 0, y: 60 }}
@@ -13,11 +13,11 @@ export default function About() {
         viewport={{ once: false }}
         className="max-w-3xl text-center"
       >
-        <h2 className="text-4xl font-bold text-cyan-400 mb-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 mb-6 sm:mb-8">
           About Me
         </h2>
 
-        <p className="text-gray-300 leading-relaxed text-lg mb-6">
+        <p className="text-gray-300 leading-relaxed text-base sm:text-lg mb-5 sm:mb-6">
           I'm a{" "}
           <span className="text-white font-semibold">
             B.Tech Computer Science
@@ -26,7 +26,7 @@ export default function About() {
           I enjoy working on scalable systems and interactive web applications.
         </p>
 
-        <p className="text-gray-400 leading-relaxed">
+        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
           My focus lies in{" "}
           <span className="text-cyan-400">
             Full Stack Development
