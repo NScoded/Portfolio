@@ -7,27 +7,34 @@ export default function Projects() {
   const [active, setActive] = useState(false);
 
   const projects = [
-    {
-      title: "Doctor Appointment Booking System",
-      desc:
-        "A full-featured appointment management platform where users can book doctor appointments and admins can manage hospitals and doctors efficiently.",
-      link: "https://doctor-appointment-booking-system-lilac.vercel.app/",
-      logo: "/logos/DABS.png"
-    },
-    {
-      title: "Samadhan – Government Complaint Management System",
-      desc:
-        "A centralized grievance monitoring dashboard developed for the Government of Chhattisgarh to track public complaints.",
-      link: "https://samadhan.ssipmt.in",
-      logo: "/logos/samadhan.jpeg"
-    },
-    {
-      title: "NPWT Device Monitoring System",
-      desc:
-        "An IoT-based monitoring system for managing medical device operations with real-time tracking.",
-      status: "in-progress"
-    }
-  ];
+  {
+    title: "Doctor Appointment Booking System",
+    desc:
+      "A full-featured appointment management platform where users can book doctor appointments and admins can manage hospitals and doctors efficiently.",
+    link: "https://doctor-appointment-booking-system-lilac.vercel.app/",
+    logo: "/logos/DABS.png"
+  },
+  {
+    title: "Samadhan – Government Complaint Management System",
+    desc:
+      "A centralized grievance monitoring dashboard developed for the Government of Chhattisgarh to track public complaints.",
+    link: "https://samadhan.ssipmt.in",
+    logo: "/logos/samadhan.jpeg"
+  },
+  {
+    title: "Lyfta Fitness Analytics Dashboard",
+    desc:
+      "A secure API-integrated fitness analytics dashboard built using React and Vercel serverless functions. Features smart date formatting, Sunday-safe streak logic, workout heatmap visualization, and protected API key architecture.",
+    link: "https://lyfta-pi.vercel.app/",
+    logo: "/logos/lyfta.png"
+  },
+  {
+    title: "NPWT Device Monitoring System",
+    desc:
+      "An IoT-based monitoring system for managing medical device operations with real-time tracking.",
+    status: "in-progress"
+  }
+];
 
   return (
     <section id="projects" className="min-h-screen px-10 py-24 relative">
