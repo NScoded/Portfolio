@@ -3,26 +3,48 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-between px-4 sm:px-6 md:px-12 pt-28 md:pt-40 gap-6">
+    <section className="min-h-screen flex flex-col md:flex-row items-center justify-center md:justify-between px-4 sm:px-6 md:px-12 pt-28 md:pt-40 gap-10">
 
-      {/* LEFT SIDE */}
+      {/* RIGHT SIDE IMAGE (Mobile Top, Desktop Right) */}
+      <motion.div
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="flex-1 flex justify-center md:justify-end order-1 md:order-2"
+      >
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full bg-cyan-400 blur-3xl opacity-30"></div>
+
+          <img
+            src="/images/Nilesh.jpg"
+            alt="Nilesh"
+            className="relative 
+              w-32 h-32 
+              sm:w-40 sm:h-40 
+              md:w-80 md:h-80 
+              object-cover rounded-full border-4 border-cyan-400 shadow-2xl"
+          />
+        </div>
+      </motion.div>
+
+      {/* LEFT SIDE TEXT */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="flex-1"
+        className="flex-1 text-center md:text-left order-2 md:order-1"
       >
         <h2 className="text-2xl sm:text-3xl md:text-6xl font-bold leading-tight">
           Hi, I'm <br />
           <span className="text-cyan-400">Nilesh Sahu</span>
         </h2>
 
-        <p className="mt-4 sm:mt-6 text-gray-400 text-sm sm:text-base md:text-lg max-w-xs sm:max-w-sm md:max-w-lg">
+        <p className="mt-4 sm:mt-6 text-gray-400 text-sm sm:text-base md:text-lg max-w-xs sm:max-w-sm md:max-w-lg mx-auto md:mx-0">
           Full Stack Developer passionate about building scalable web applications and impactful digital solutions.
         </p>
 
         {/* SOCIAL LINKS */}
-        <div className="flex gap-4 sm:gap-6 mt-6 text-gray-400">
+        <div className="flex justify-center md:justify-start gap-4 sm:gap-6 mt-6 text-gray-400">
           <a
             href="https://github.com/nscoded"
             target="_blank"
@@ -63,28 +85,6 @@ export default function Hero() {
           >
             <Mail size={20} />
           </a>
-        </div>
-      </motion.div>
-
-      {/* RIGHT SIDE IMAGE */}
-      <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="flex-1 flex justify-end"
-      >
-        <div className="relative">
-          <div className="absolute inset-0 rounded-full bg-cyan-400 blur-3xl opacity-30"></div>
-
-          <img
-            src="/images/Nilesh.jpg"
-            alt="Nilesh"
-            className="relative 
-              w-28 h-28 
-              sm:w-40 sm:h-40 
-              md:w-80 md:h-80 
-              object-cover rounded-full border-4 border-cyan-400 shadow-2xl"
-          />
         </div>
       </motion.div>
 
