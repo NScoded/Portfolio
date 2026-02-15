@@ -32,8 +32,10 @@ export default function Skills() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Initialize positions
+  // Initialize positions (Desktop only)
   useEffect(() => {
+    if (isMobile) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -56,9 +58,9 @@ export default function Skills() {
 
     velocityRef.current = initialVel;
     setPositions(initialPos);
-  }, []);
+  }, [isMobile]);
 
-  // Animation loop (desktop only)
+  // Animation loop (Desktop only)
   useEffect(() => {
     if (isMobile) return;
 
@@ -127,61 +129,9 @@ export default function Skills() {
         Skills
       </h2>
 
-      {/* Categories */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-24 mb-20 relative z-20">
-        {Object.keys(categories).map((cat, i) => (
-          <div
-            key={i}
-            ref={(el) => (categoryRefs.current[cat] = el)}
-            onMouseEnter={() => handleHover(cat)}
-            onMouseLeave={() => setActiveCategory(null)}
-            className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-white text-sm md:text-base font-semibold cursor-pointer hover:scale-110 transition duration-300 text-center px-4"
-          >
-            {cat}
-          </div>
-        ))}
-      </div>
-
-      {/* Skill Bubbles */}
-      {!isMobile &&
-        skillsList.map((skill, i) => {
-
-          const isActive =
-            activeCategory &&
-            categories[activeCategory]?.includes(skill);
-
-          let style = {
-            left: positions[skill]?.x || 0,
-            top: positions[skill]?.y || 0
-          };
-
-          if (isActive) {
-            const index = categories[activeCategory].indexOf(skill);
-
-            style = {
-              left: categoryCenter.x - 70 + index * 85,
-              top: categoryCenter.y + 20
-            };
-          }
-
-          return (
-            <div
-              key={i}
-              className={`absolute w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-[10px] md:text-xs transition-all duration-500 ${
-                isActive
-                  ? "bg-cyan-400 text-black scale-110"
-                  : "bg-white/10 text-gray-300"
-              }`}
-              style={style}
-            >
-              {skill}
-            </div>
-          );
-        })}
-
-      {/* Mobile fallback simple grid */}
+      {/* 🔥 MOBILE VIEW (Only Skills List) */}
       {isMobile && (
-        <div className="grid grid-cols-2 gap-4 mt-10">
+        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
           {skillsList.map((skill, i) => (
             <div
               key={i}
@@ -191,6 +141,62 @@ export default function Skills() {
             </div>
           ))}
         </div>
+      )}
+
+      {/* 🔥 DESKTOP VIEW (Original Floating Version) */}
+      {!isMobile && (
+        <>
+          {/* Categories */}
+          <div className="flex justify-center gap-24 mb-20 relative z-20">
+            {Object.keys(categories).map((cat, i) => (
+              <div
+                key={i}
+                ref={(el) => (categoryRefs.current[cat] = el)}
+                onMouseEnter={() => handleHover(cat)}
+                onMouseLeave={() => setActiveCategory(null)}
+                className="w-48 h-48 rounded-full bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-white font-semibold cursor-pointer hover:scale-110 transition duration-300 text-center px-4"
+              >
+                {cat}
+              </div>
+            ))}
+          </div>
+
+          {/* Floating Bubbles */}
+          {skillsList.map((skill, i) => {
+
+            const isActive =
+              activeCategory &&
+              categories[activeCategory]?.includes(skill);
+
+            let style = {
+              left: positions[skill]?.x || 0,
+              top: positions[skill]?.y || 0
+            };
+
+            if (isActive) {
+              const index = categories[activeCategory].indexOf(skill);
+
+              style = {
+                left: categoryCenter.x - 70 + index * 85,
+                top: categoryCenter.y + 20
+              };
+            }
+
+            return (
+              <div
+                key={i}
+                className={`absolute w-20 h-20 rounded-full flex items-center justify-center text-xs transition-all duration-500 ${
+                  isActive
+                    ? "bg-cyan-400 text-black scale-110"
+                    : "bg-white/10 text-gray-300"
+                }`}
+                style={style}
+              >
+                {skill}
+              </div>
+            );
+          })}
+        </>
       )}
     </section>
   );
