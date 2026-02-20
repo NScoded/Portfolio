@@ -22,7 +22,7 @@ const educationData = [
   {
     year: "2023 – 2027",
     title: "B.Tech – Computer Science & Engineering",
-    institution: "Shri Shankaracharya Institute, Raipur",
+    institution: "Shri Shankaracharya Institute of Professional Management and Technology, Raipur",
     description:
       "Currently pursuing B.Tech with focus on Data Structures, Algorithms and Full Stack Development.",
       score:"Current CGPA - 7.63",
