@@ -54,15 +54,6 @@ const certData = [
       "Completed the 'Fundamentals of Cybersecurity (EDU-102)' course offered by Zscaler Training.",
     logo: "/logos/zscaler.png",
     link: "https://verify.skilljar.com/c/m3f8ajvakktk",
-  },
-  {
-    title: " Networking for Cyber Professionals Course",
-    issuer: "Zscaler Academy",
-    year: "2026",
-    description:
-      "Completed Introduction to Networking for Cyber Professionals Course offered by Zscaler Academy",
-    logo: "/logos/zscaler.png",
-    link: "https://verify.skilljar.com/c/7tvmuaatmukw",
   }
 ];
 
