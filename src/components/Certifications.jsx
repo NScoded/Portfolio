@@ -38,13 +38,22 @@ const certData = [
     link: "https://drive.google.com/file/d/11yJSaYoxW1gLrpQPCs6K-UA-pZIB3yr6/view?usp=sharing",
   },
   {
+    title: "Zscaler Zero Trust Associate (ZTCA) Certification",
+    issuer: "Zscaler Academy",
+    year: "2026",
+    description:
+      "Earned the Zscaler Zero Trust Associate (ZTCA) certification from Zscaler Academy by successfully clearing the certification exam, demonstrating strong understanding of Zero Trust architecture and secure access principles.",
+    logo: "/logos/zscaler.png",
+    link: "https://verify.skilljar.com/c/rwptnww7a7cn",
+  },
+  {
     title: "Fundamentals of Cybersecurity (EDU-102)",
     issuer: "Zscaler Training",
     year: "2026",
     description:
       "Completed the 'Fundamentals of Cybersecurity (EDU-102)' course offered by Zscaler Training.",
     logo: "/logos/zscaler.png",
-    link: "https://drive.google.com/file/d/1QUQG7i1JcX7aWzXeDwGZ82Jm_kvfJ3h8/view?usp=sharing",
+    link: "https://verify.skilljar.com/c/m3f8ajvakktk",
   },
   {
     title: " Networking for Cyber Professionals Course",
@@ -53,16 +62,7 @@ const certData = [
     description:
       "Completed Introduction to Networking for Cyber Professionals Course offered by Zscaler Academy",
     logo: "/logos/zscaler.png",
-    link: "https://drive.google.com/file/d/1DCUrnc0FtLDMHFseKHehlR9gLcpnhlA-/view?usp=sharing",
-  },
-  {
-    title: "Zscaler Zero Trust Associate (ZTCA) Certification",
-    issuer: "Zscaler Academy",
-    year: "2026",
-    description:
-      "Earned the Zscaler Zero Trust Associate (ZTCA) certification from Zscaler Academy by successfully clearing the certification exam, demonstrating strong understanding of Zero Trust architecture and secure access principles.",
-    logo: "/logos/zscaler.png",
-    link: "https://drive.google.com/file/d/1Z_xufaKBeJjILUu6mM0BDLwZ1axdE8nt/view?usp=sharing",
+    link: "https://verify.skilljar.com/c/7tvmuaatmukw",
   }
 ];
 
