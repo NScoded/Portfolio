@@ -3,15 +3,7 @@ import { motion } from "framer-motion";
 export default function CurrentlyLearning() {
 
   const learning = [
-    {
-      title: "Zero Trust Cyber Associate (ZTCA)",
-      issuer: "Zscaler Cyber Academy",
-      year: "2025",
-      desc:
-        "Engaged in the Zero Trust Cyber Associate program focusing on modern security practices and understanding zero trust principles in evolving cybersecurity environments.",
-      logo: "/logos/zscaler.png",
-      link: "https://www.zscaler.com/zscaler-cyber-academy/ztca-zero-trust-cyber-associate"
-    },
+    
     {
       title: "AWS Academy Cloud Foundations",
       issuer: "AWS Academy",
