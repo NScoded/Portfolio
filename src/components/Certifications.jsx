@@ -36,6 +36,33 @@ const certData = [
       "Awarded by the District Collector, Raipur for significant contribution to district-level government software development projects.",
     logo: "/logos/govt.png",
     link: "https://drive.google.com/file/d/11yJSaYoxW1gLrpQPCs6K-UA-pZIB3yr6/view?usp=sharing",
+  },
+  {
+    title: "Fundamentals of Cybersecurity (EDU-102)",
+    issuer: "Zscaler Training",
+    year: "2026",
+    description:
+      "Completed the 'Fundamentals of Cybersecurity (EDU-102)' course offered by Zscaler Training.",
+    logo: "/logos/zscaler.png",
+    link: "https://drive.google.com/file/d/1QUQG7i1JcX7aWzXeDwGZ82Jm_kvfJ3h8/view?usp=sharing",
+  },
+  {
+    title: " Networking for Cyber Professionals Course",
+    issuer: "Zscaler Academy",
+    year: "2026",
+    description:
+      "Completed Introduction to Networking for Cyber Professionals Course offered by Zscaler Academy",
+    logo: "/logos/zscaler.png",
+    link: "https://drive.google.com/file/d/1DCUrnc0FtLDMHFseKHehlR9gLcpnhlA-/view?usp=sharing",
+  },
+  {
+    title: "Zscaler Zero Trust Associate (ZTCA) Certification",
+    issuer: "Zscaler Academy",
+    year: "2026",
+    description:
+      "Earned the Zscaler Zero Trust Associate (ZTCA) certification from Zscaler Academy by successfully clearing the certification exam, demonstrating strong understanding of Zero Trust architecture and secure access principles.",
+    logo: "/logos/zscaler.png",
+    link: "https://drive.google.com/file/d/1Z_xufaKBeJjILUu6mM0BDLwZ1axdE8nt/view?usp=sharing",
   }
 ];
 
