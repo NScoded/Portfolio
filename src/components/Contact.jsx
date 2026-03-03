@@ -19,18 +19,7 @@ export default function Contact() {
       logo: "/logos/leetcode.png",
       link: "https://leetcode.com/NsCoded"
     },
-    {
-      name: "Instagram",
-      desc: "Personal Personal",
-      logo: "/logos/instagram.png",
-      link: "https://instagram.com/thenileshsahu"
-    },
-    {
-      name: "Facebook",
-      desc: "Personal Profile",
-      logo: "/logos/facebook.png",
-      link: "https://www.facebook.com/profile.php?id=100042198312090"
-    },
+    
     {
       name: "Duolingo",
       desc: "Language Learning",
@@ -52,11 +41,11 @@ export default function Contact() {
       className="min-h-screen flex flex-col justify-center items-center px-6 py-24"
     >
       <h2 className="text-4xl font-bold text-cyan-400 mb-4 text-center">
-        Connect With Me
+        Links And Connections 
       </h2>
 
       <p className="text-gray-400 text-center max-w-xl mb-12">
-        Professional & personal profiles.
+        See my progress and connect wit me 
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 w-full max-w-3xl">

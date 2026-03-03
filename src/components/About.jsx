@@ -27,16 +27,26 @@ export default function About() {
         </p>
 
         <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
-          My focus lies in{" "}
+          My focus lies on mastering {" "}
           <span className="text-cyan-400">
-            Full Stack Development
-          </span>
-          , backend architecture and problem solving through{" "}
+            Data Structure and Algorithms.
+          </span>{' '}
+          I have hands on knowledge of the {" "}
           <span className="text-cyan-400">
-            Data Structures & Algorithms
+            MERN Stack
+          </span >
+          {' '}
+          and backend architecture. I am currently exploring {' '}
+          <span className="text-red-300">
+          Cloud Computing services 
           </span>
-          . I continuously explore modern technologies and aim to
-          create meaningful, efficient and impactful software.
+          {' '}
+          and
+          {' '}
+          <span className="text-red-300">
+          Cybersecurity 
+          </span>{' '}
+          to broaden my technical expertise.
         </p>
       </motion.div>
     </section>

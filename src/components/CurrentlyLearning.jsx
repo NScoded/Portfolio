@@ -11,7 +11,7 @@ export default function CurrentlyLearning() {
       desc:
         "Currently enrolled in the AWS Academy Cloud Foundations course, gaining a foundational understanding of cloud computing concepts including cloud principles, AWS core services, security, architecture and support.",
       logo: "/logos/awscloud.png",
-      link: "https://www.aws.training/Academy"
+      link: "https://aws.amazon.com/training/awsacademy/"
     }
   ];
 
