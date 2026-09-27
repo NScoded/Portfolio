@@ -1,0 +1,54 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: #ffffff;
+  font-family: Inter, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  width: 100%;
+}
+
+/* =========================================================
+   PAGE SECTIONS
+========================================================= */
+
+.main-content > section {
+  width: 100%;
+  position: relative;
+}
+
+/* Better positioning when scrolling to IDs */
+.main-content > section {
+  scroll-margin-top: 20px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .main-content > section {
+    width: 100%;
+  }
+}
