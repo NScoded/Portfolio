@@ -40,12 +40,14 @@ const DUOLINGO_PROFILE_URL = `https://www.duolingo.com/profile/${DUOLINGO_USERNA
    The Lyfta API key stays on Vercel as LYFTA_API_KEY and is
    never exposed to the React/browser bundle.
 ========================================================= */
+/* =========================================================
+   LYFTA API
+========================================================= */
+
 const LYFTA_API_BASE_URL = "/api/lyfta";
 
 async function fetchLyftaJson(path) {
-  const url = `${LYFTA_API_BASE_URL}${path}`;
-
-  const response = await fetch(url, {
+  const response = await fetch(`${LYFTA_API_BASE_URL}${path}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -53,18 +55,10 @@ async function fetchLyftaJson(path) {
   });
 
   if (!response.ok) {
-    let message = `Lyfta request failed: ${response.status}`;
-
-    try {
-      const errorData = await response.json();
-      if (errorData?.error) {
-        message = errorData.error;
-      }
-    } catch {
-      // Keep the default HTTP error message.
-    }
-
-    throw new Error(message);
+    const text = await response.text().catch(() => "");
+    throw new Error(
+      `Lyfta API failed: ${response.status} ${text}`
+    );
   }
 
   return response.json();

@@ -1,11 +1,19 @@
 export default async function handler(req, res) {
   try {
+    const apiKey = process.env.LYFTA_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({
+        error: "LYFTA_API_KEY is not configured in Vercel",
+      });
+    }
+
     const response = await fetch(
       "https://my.lyfta.app/api/v1/workouts",
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${process.env.LYFTA_API_KEY}`,
+          Authorization: `Bearer ${apiKey}`,
           Accept: "application/json",
         },
       }
@@ -13,11 +21,11 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    res.status(response.status).json(data);
+    return res.status(response.status).json(data);
   } catch (error) {
     console.error("Lyfta workouts error:", error);
 
-    res.status(500).json({
+    return res.status(500).json({
       error: "Failed to fetch Lyfta workouts",
       message: error.message,
     });
