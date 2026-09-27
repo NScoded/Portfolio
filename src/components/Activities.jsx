@@ -8,13 +8,8 @@ import {
   ArrowDownRight,
   BookOpen,
   Brain,
-  CheckCircle2,
-  ChevronRight,
-  CircleDot,
   Code2,
-  Gamepad2,
   GraduationCap,
-  Target,
   Trophy,
   Zap,
 } from "lucide-react";
@@ -230,29 +225,6 @@ const dummyData = {
     change: "+20%",
   },
 
-  wordle: {
-    result: "GROWTH",
-    attempts: 4,
-    streak: 28,
-  },
-
-  games: [
-    {
-      name: "Valorant",
-      matches: "2 Matches",
-      result: "1 Win · 1 Loss",
-      rank: "Silver",
-      type: "valorant",
-    },
-    {
-      name: "BGMI",
-      matches: "1 Match",
-      result: "Top 10 Finish",
-      rank: "Crown V",
-      type: "bgmi",
-    },
-  ],
-
   learning: [
     {
       title: "DAA - Graph Algorithms",
@@ -271,39 +243,6 @@ const dummyData = {
     },
   ],
 
-  timeline: [
-    {
-      time: "08:30",
-      text: "LeetCode activity",
-      tag: "Live data",
-      type: "leetcode",
-    },
-    {
-      time: "10:15",
-      text: "Pushed code to watch-party",
-      tag: "GitHub",
-      type: "github",
-    },
-    {
-      time: "12:40",
-      text: "Played a Chess game",
-      tag: "Chess",
-      type: "chess",
-    },
-    {
-      time: "16:20",
-      text: "Completed Wordle",
-      tag: "4 attempts",
-      type: "wordle",
-    },
-  ],
-
-  goals: [
-    "Solve at least 1 LeetCode problem",
-    "Push code to GitHub",
-    "Play at least 1 Chess game",
-    "Study for 2 hours",
-  ],
 };
 
 /* =========================================================
@@ -1874,15 +1813,6 @@ function Activities() {
         />
 
         <StatCard
-          icon={<Gamepad2 size={24} />}
-          title="Games Played"
-          value={dummyData.games.value}
-          subtitle={dummyData.games.subtitle}
-          change={dummyData.games.change}
-          iconClass="games"
-        />
-
-        <StatCard
           icon={<BookOpen size={24} />}
           title="Learning"
           value={dummyData.learning.value}
@@ -2205,7 +2135,6 @@ function Activities() {
                 Games (Last 7 days)
               </span>
 
-
             </div>
 
             <div className="games-bar">
@@ -2269,140 +2198,6 @@ function Activities() {
               </span>
 
             </div>
-
-          </div>
-
-        </div>
-
-        {/* =================================================
-            WORDLE
-        ================================================= */}
-
-        <div className="activity-panel">
-
-          <SectionHeader
-            icon={
-              <span className="wordle-icon">
-                W
-              </span>
-            }
-            title="Wordle"
-          />
-
-          <div className="wordle-content">
-
-            <div>
-
-              <span className="activity-label">
-                Today's Result
-              </span>
-
-              <div className="wordle-letters">
-
-                {dummyData.wordle.result
-                  .split("")
-                  .map((letter, index) => (
-                    <span
-                      key={`${letter}-${index}`}
-                      className={
-                        index === 2
-                          ? "yellow"
-                          : index === 4
-                          ? "green"
-                          : index === 5
-                          ? "gray"
-                          : "correct"
-                      }
-                    >
-                      {letter}
-                    </span>
-                  ))}
-
-              </div>
-
-              <p className="wordle-success">
-                <CheckCircle2 size={17} />
-
-                Solved in{" "}
-                {dummyData.wordle.attempts}{" "}
-                attempts
-              </p>
-
-            </div>
-
-            <div className="wordle-streak">
-
-              <span className="activity-label">
-                Current Streak
-              </span>
-
-              <strong>
-                🔥 {dummyData.wordle.streak}
-              </strong>
-
-              <small>
-                days
-              </small>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* =================================================
-            OTHER GAMES
-        ================================================= */}
-
-        <div className="activity-panel">
-
-          <SectionHeader
-            icon={<Gamepad2 size={21} />}
-            title="Other Games"
-          />
-
-          <div className="other-games-list">
-
-            {dummyData.games.map((game) => (
-
-              <div
-                className="other-game-item"
-                key={game.name}
-              >
-
-                <div
-                  className={`game-logo ${game.type}`}
-                >
-                  {game.type === "valorant"
-                    ? "V"
-                    : "B"}
-                </div>
-
-                <div className="other-game-info">
-
-                  <strong>
-                    {game.name}
-                  </strong>
-
-                  <span>
-                    {game.matches}
-                  </span>
-
-                  <small>
-                    {game.result}
-                  </small>
-
-                </div>
-
-                <div className="game-rank">
-                  <span>
-                    {game.rank}
-                  </span>
-                </div>
-
-              </div>
-
-            ))}
 
           </div>
 
@@ -2607,7 +2402,7 @@ function Activities() {
             }
             title="Lyfta"
             action="Open Lyfta"
-            href="https://my.lyfta.app"
+            href="https://lyfta-pi.vercel.app/"
           />
 
           <div className="lyfta-stat-hero">
@@ -2756,152 +2551,6 @@ function Activities() {
               Lyfta data could not be loaded. Check the Lyfta backend/API route.
             </p>
           )}
-        </div>
-
-        {/* =================================================
-            TIMELINE
-        ================================================= */}
-
-        <div className="activity-panel">
-
-          <SectionHeader
-            icon={<CircleDot size={21} />}
-            title="Today's Activity Timeline"
-            action="View All"
-          />
-
-          <div className="activity-timeline">
-
-            {dummyData.timeline.map(
-              (item, index) => (
-
-                <div
-                  className="timeline-item"
-                  key={`${item.time}-${index}`}
-                >
-
-                  <div className="timeline-time">
-                    {item.time}
-                  </div>
-
-                  <div className="timeline-dot" />
-
-                  <div className="timeline-content">
-
-                    <span>
-                      {index === 0
-                        ? `Solved LeetCode - ${leetcode.lastSolved}`
-                        : item.text}
-                    </span>
-
-                    <small>
-                      {item.tag}
-                    </small>
-
-                  </div>
-
-                </div>
-
-              )
-            )}
-
-          </div>
-
-        </div>
-
-        {/* =================================================
-            FOCUS TIME
-        ================================================= */}
-
-        <div className="activity-panel">
-
-          <SectionHeader
-            icon={<Zap size={21} />}
-            title="Focus Time (Today)"
-          />
-
-          <div className="focus-total">
-            5h 30m
-          </div>
-
-          <div className="focus-chart">
-
-            {[
-              "9AM",
-              "11AM",
-              "1PM",
-              "3PM",
-              "5PM",
-              "7PM",
-            ].map((hour, index) => (
-
-              <div
-                className="focus-column"
-                key={hour}
-              >
-
-                <div
-                  className="focus-column-bar"
-                  style={{
-                    height: `${
-                      35 + index * 9
-                    }px`,
-                  }}
-                />
-
-                <span>
-                  {hour}
-                </span>
-
-              </div>
-
-            ))}
-
-          </div>
-
-        </div>
-
-        {/* =================================================
-            GOALS
-        ================================================= */}
-
-        <div className="activity-panel">
-
-          <SectionHeader
-            icon={<Target size={21} />}
-            title="Goals"
-            action="View All"
-          />
-
-          <div className="goals-list">
-
-            {dummyData.goals.map(
-              (goal, index) => (
-
-                <div
-                  className="goal-item"
-                  key={goal}
-                >
-
-                  <CheckCircle2 size={19} />
-
-                  <span>
-                    {goal}
-                  </span>
-
-                  <ChevronRight size={17} />
-
-                  {index === 0 && (
-                    <span className="goal-complete-dot" />
-                  )}
-
-                </div>
-
-              )
-            )}
-
-          </div>
-
         </div>
 
       </div>
