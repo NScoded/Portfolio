@@ -12,7 +12,6 @@ import {
   ChevronRight,
   CircleDot,
   Code2,
-  Dumbbell,
   Gamepad2,
   GraduationCap,
   Target,
@@ -64,20 +63,19 @@ async function fetchLyftaJson(path) {
   return response.json();
 }
 
-function LyftaIcon({ size = 22 }) {
-  return <Dumbbell size={size} strokeWidth={2.2} aria-hidden="true" />;
-}
-
 function formatLyftaDate(value) {
   if (!value) return "—";
 
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "—";
 
-  return date.toLocaleDateString("en-IN", {
+  return date.toLocaleString("en-IN", {
     day: "2-digit",
     month: "short",
     year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
   });
 }
 
@@ -2614,14 +2612,6 @@ function Activities() {
 
           <div className="lyfta-stat-hero">
             <div className="lyfta-stat-hero-top">
-              <div className="lyfta-brand-mark">
-                <img
-                  src="https://play-lh.googleusercontent.com/AX-6eXLHm5zP_VdCnZR5l0JCKpfkA2SgUHHtiLKl-o4zzh5Z21mDbHrjeUYEasrSjDYGWBJDhcKK8e1WjKEM%3Dw240-h480"
-                  alt=""
-                  className="lyfta-official-icon"
-                />
-              </div>
-
               <div className="lyfta-session-copy">
                 <span>Latest workout</span>
                 <strong>
