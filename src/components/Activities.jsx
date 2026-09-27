@@ -1128,12 +1128,58 @@ function Activities() {
             0
         );
 
+        /*
+          The stats proxy currently exposes total XP/course XP reliably,
+          but weekly XP can be missing from its normalized response.
+          Fetch the public Duolingo user record as a fallback so the
+          card does not show blank values when those fields are absent.
+        */
+        let directDuolingoStats = null;
+
+        if (data?.id) {
+          try {
+            const directResponse = await fetch(
+              `https://www.duolingo.com/2017-06-30/users/${encodeURIComponent(
+                data.id
+              )}?fields=weeklyXp,streakData`,
+              {
+                method: "GET",
+                headers: {
+                  Accept: "application/json",
+                },
+              }
+            );
+
+            if (directResponse.ok) {
+              directDuolingoStats = await directResponse.json();
+            }
+          } catch (directError) {
+            console.warn(
+              "Direct Duolingo stats fallback failed:",
+              directError
+            );
+          }
+        }
+
         const longestStreakRaw =
           data?.longestStreak ??
           data?.longest_streak ??
           data?.streakData?.longestStreak?.length ??
           data?.streakData?.longestStreak ??
+          directDuolingoStats?.streakData?.longestStreak?.length ??
+          directDuolingoStats?.streakData?.longestStreak ??
           null;
+
+        /*
+          If Duolingo does not expose the historical longest streak
+          publicly, use the current streak as a safe fallback instead
+          of rendering an empty card.
+        */
+        const longestStreakNumber =
+          longestStreakRaw !== null &&
+          Number.isFinite(Number(longestStreakRaw))
+            ? Number(longestStreakRaw)
+            : streak;
 
         const weeklyXpRaw =
           data?.weeklyXp ??
@@ -1141,6 +1187,9 @@ function Activities() {
           data?.weekly_xp ??
           data?.xpThisWeek ??
           data?.xp_this_week ??
+          directDuolingoStats?.weeklyXp ??
+          directDuolingoStats?.weeklyXP ??
+          directDuolingoStats?.weekly_xp ??
           null;
 
         const league =
@@ -1153,10 +1202,7 @@ function Activities() {
         setDuolingo({
           username: data?.username || DUOLINGO_USERNAME,
           streak: Number.isFinite(streak) ? streak : 0,
-          longestStreak:
-            longestStreakRaw !== null && Number.isFinite(Number(longestStreakRaw))
-              ? Number(longestStreakRaw)
-              : null,
+          longestStreak: longestStreakNumber,
           totalXp: Number.isFinite(totalXp) ? totalXp : 0,
           weeklyXp:
             weeklyXpRaw !== null && Number.isFinite(Number(weeklyXpRaw))
