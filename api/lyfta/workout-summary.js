@@ -15,10 +15,11 @@ export default async function handler(req, res) {
 
     res.status(response.status).json(data);
   } catch (error) {
-    console.error("Lyfta workout summary error:", error);
+    console.error("Lyfta summary error:", error);
 
     res.status(500).json({
-      error: "Failed to fetch Lyfta workout summary",
+      error: "Failed to fetch Lyfta summary",
+      message: error.message,
     });
   }
 }
