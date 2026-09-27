@@ -2105,6 +2105,7 @@
 
 /* =========================================================
    16. LYFTA / GYM ACTIVITY
+   Statistical dashboard-style Lyfta card
 ========================================================= */
 
 .lyfta-activity-panel {
@@ -2117,124 +2118,273 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   color: #9bea4c;
 }
 
-.lyfta-hero {
+.lyfta-official-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Main workout summary */
+
+.lyfta-stat-hero {
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+  padding: 13px;
+  border: 1px solid rgba(155, 234, 76, 0.2);
+  border-radius: 13px;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(155, 234, 76, 0.1),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(155, 234, 76, 0.07),
+      rgba(8, 18, 31, 0.72)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.lyfta-stat-hero::after {
+  content: "";
+  position: absolute;
+  right: -35px;
+  bottom: -55px;
+  width: 130px;
+  height: 130px;
+  border: 1px solid rgba(155, 234, 76, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.lyfta-stat-hero-top {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 11px;
-  margin-top: 4px;
-  padding: 12px;
-  border: 1px solid rgba(155, 234, 76, 0.18);
-  border-radius: 11px;
-  background: linear-gradient(135deg, rgba(155,234,76,.08), rgba(10,20,35,.52));
+  gap: 10px;
 }
 
-.lyfta-hero-icon {
-  width: 42px;
-  height: 42px;
+.lyfta-brand-mark {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
   display: grid;
   place-items: center;
-  flex-shrink: 0;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(155, 234, 76, 0.2);
   border-radius: 11px;
-  color: #9bea4c;
-  background: rgba(155, 234, 76, 0.10);
-  border: 1px solid rgba(155, 234, 76, 0.16);
+  background: #050a12;
 }
 
-.lyfta-hero-copy {
+.lyfta-session-copy {
   min-width: 0;
+  flex: 1;
 }
 
-.lyfta-hero-copy strong {
+.lyfta-session-copy > span {
   display: block;
-  margin-top: 2px;
+  color: #8da0bc;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.lyfta-session-copy strong {
+  display: block;
+  margin-top: 3px;
   color: #f1f5ff;
   font-size: 15px;
+  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.lyfta-hero-copy > span:last-child {
+.lyfta-session-copy small {
   display: block;
-  margin-top: 3px;
+  margin-top: 4px;
   color: #71839f;
+  font-size: 9px;
+}
+
+.lyfta-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 5px 7px;
+  border: 1px solid rgba(155, 234, 76, 0.18);
+  border-radius: 999px;
+  color: #a8ee62;
+  background: rgba(155, 234, 76, 0.07);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.lyfta-live-pill i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #9bea4c;
+  box-shadow: 0 0 7px rgba(155, 234, 76, 0.65);
+}
+
+.lyfta-primary-stat {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(155, 234, 76, 0.11);
+}
+
+.lyfta-primary-stat span:first-child {
+  display: block;
+  color: #8092ae;
   font-size: 10px;
 }
 
-.lyfta-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 10px;
-  border: 1px solid #1f2a3d;
-  border-radius: 10px;
-  background: rgba(10, 20, 35, 0.48);
+.lyfta-primary-stat strong {
+  display: block;
+  margin-top: 2px;
+  color: #f5f8ff;
+  font-size: 27px;
+  line-height: 1;
+  letter-spacing: -0.7px;
 }
 
-.lyfta-metrics > div {
+.lyfta-stat-unit {
+  padding-bottom: 2px;
+  color: #9bea4c;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Four compact statistical cells */
+
+.lyfta-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(80, 105, 148, 0.2);
+  border-radius: 11px;
+  background: rgba(10, 20, 35, 0.55);
+}
+
+.lyfta-stat-box {
   min-width: 0;
   padding: 10px 7px;
   text-align: center;
 }
 
-.lyfta-metrics > div + div {
-  border-left: 1px solid rgba(31,42,61,.72);
+.lyfta-stat-box + .lyfta-stat-box {
+  border-left: 1px solid rgba(80, 105, 148, 0.17);
 }
 
-.lyfta-metrics strong {
+.lyfta-stat-box span,
+.lyfta-stat-box small {
   display: block;
+  color: #72829e;
+  font-size: 9px;
+}
+
+.lyfta-stat-box strong {
+  display: block;
+  margin: 4px 0 3px;
   color: #edf2ff;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.lyfta-metrics span {
-  display: block;
-  margin-top: 3px;
-  color: #71839f;
-  font-size: 9px;
-}
+/* Exercise breakdown */
 
-.lyfta-exercises {
+.lyfta-breakdown {
   margin-top: 10px;
   padding: 11px 12px;
-  border: 1px solid #1f2a3d;
-  border-radius: 10px;
+  border: 1px solid rgba(80, 105, 148, 0.2);
+  border-radius: 11px;
   background: rgba(10, 20, 35, 0.45);
 }
 
-.lyfta-exercise-row {
+.lyfta-breakdown-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 8px 0;
-  border-top: 1px solid rgba(31,42,61,.72);
+  gap: 8px;
+  margin-bottom: 5px;
 }
 
-.lyfta-exercise-row:first-of-type {
-  margin-top: 3px;
-  border-top: 0;
+.lyfta-breakdown-header span {
+  color: #aebbd0;
+  font-size: 10px;
+  font-weight: 600;
 }
 
-.lyfta-exercise-row span {
+.lyfta-breakdown-header small {
+  color: #667791;
+  font-size: 8px;
+}
+
+.lyfta-exercise-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.lyfta-exercise-row {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 7px 0;
+  border-top: 1px solid rgba(31, 42, 61, 0.72);
+}
+
+.lyfta-exercise-index {
+  color: #62738e;
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
+
+.lyfta-exercise-name {
   min-width: 0;
   color: #dce5f5;
-  font-size: 11px;
+  font-size: 10px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.lyfta-exercise-row small {
+.lyfta-exercise-sets {
   flex-shrink: 0;
-  color: #71839f;
-  font-size: 9px;
+  padding: 3px 6px;
+  border: 1px solid rgba(155, 234, 76, 0.11);
+  border-radius: 5px;
+  color: #91a4bd;
+  background: rgba(155, 234, 76, 0.035);
+  font-size: 8px;
 }
+
+/* Footer */
 
 .lyfta-footer-row {
   display: flex;
@@ -2258,7 +2408,7 @@
   height: 5px;
   border-radius: 50%;
   background: #9bea4c;
-  box-shadow: 0 0 7px rgba(155,234,76,.55);
+  box-shadow: 0 0 7px rgba(155, 234, 76, 0.55);
 }
 
 .lyfta-api-error {
@@ -2269,26 +2419,51 @@
 }
 
 @media (max-width: 700px) {
-  .lyfta-metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .lyfta-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lyfta-stat-box:nth-child(3) {
+    border-left: 0;
+    border-top: 1px solid rgba(80, 105, 148, 0.17);
+  }
+
+  .lyfta-stat-box:nth-child(4) {
+    border-top: 1px solid rgba(80, 105, 148, 0.17);
   }
 }
 
 @media (max-width: 420px) {
-  .lyfta-hero {
+  .lyfta-stat-hero {
     padding: 10px;
   }
 
-  .lyfta-hero-icon {
+  .lyfta-brand-mark {
     width: 38px;
     height: 38px;
+    padding: 6px;
   }
 
-  .lyfta-metrics strong {
-    font-size: 12px;
+  .lyfta-session-copy strong {
+    font-size: 13px;
+  }
+
+  .lyfta-primary-stat strong {
+    font-size: 24px;
+  }
+
+  .lyfta-stat-box {
+    padding: 9px 5px;
+  }
+
+  .lyfta-stat-box strong {
+    font-size: 14px;
+  }
+
+  .lyfta-breakdown {
+    padding: 10px;
   }
 }
-
 
 /* =========================================================
    17. COMPACT DESKTOP SCALE

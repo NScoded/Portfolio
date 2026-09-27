@@ -107,6 +107,39 @@ function getLyftaExerciseList(workout) {
   return Array.isArray(workout?.exercises) ? workout.exercises : [];
 }
 
+function getLyftaTotalSets(workout) {
+  return getLyftaExerciseList(workout).reduce((total, exercise) => {
+    return (
+      total +
+      (Array.isArray(exercise?.sets) ? exercise.sets.length : 0)
+    );
+  }, 0);
+}
+
+function getLyftaUniqueExerciseCount(workout) {
+  const names = getLyftaExerciseList(workout)
+    .map(
+      (exercise) =>
+        exercise?.excercise_name ||
+        exercise?.exercise_name ||
+        exercise?.name ||
+        ""
+    )
+    .map((name) => String(name).trim().toLowerCase())
+    .filter(Boolean);
+
+  return new Set(names).size;
+}
+
+function formatLyftaVolume(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "—";
+
+  return number.toLocaleString("en-IN", {
+    maximumFractionDigits: 1,
+  });
+}
+
 function getDuolingoLanguageDisplay(language) {
   const code = String(language || "").toLowerCase();
 
@@ -2567,7 +2600,11 @@ function Activities() {
           <SectionHeader
             icon={
               <span className="lyfta-icon">
-                <LyftaIcon size={21} />
+                <img
+                  src="https://play-lh.googleusercontent.com/AX-6eXLHm5zP_VdCnZR5l0JCKpfkA2SgUHHtiLKl-o4zzh5Z21mDbHrjeUYEasrSjDYGWBJDhcKK8e1WjKEM%3Dw240-h480"
+                  alt="Lyfta"
+                  className="lyfta-official-icon"
+                />
               </span>
             }
             title="Lyfta"
@@ -2575,75 +2612,145 @@ function Activities() {
             href="https://my.lyfta.app"
           />
 
-          <div className="lyfta-hero">
-            <div className="lyfta-hero-icon">
-              <LyftaIcon size={24} />
+          <div className="lyfta-stat-hero">
+            <div className="lyfta-stat-hero-top">
+              <div className="lyfta-brand-mark">
+                <img
+                  src="https://play-lh.googleusercontent.com/AX-6eXLHm5zP_VdCnZR5l0JCKpfkA2SgUHHtiLKl-o4zzh5Z21mDbHrjeUYEasrSjDYGWBJDhcKK8e1WjKEM%3Dw240-h480"
+                  alt=""
+                  className="lyfta-official-icon"
+                />
+              </div>
+
+              <div className="lyfta-session-copy">
+                <span>Latest workout</span>
+                <strong>
+                  {lyfta.loading
+                    ? "Loading..."
+                    : lyfta.workout?.title || "No workout found"}
+                </strong>
+                <small>
+                  {formatLyftaDate(
+                    lyfta.summary?.workout_perform_date ??
+                      lyfta.workout?.workout_perform_date
+                  )}
+                </small>
+              </div>
+
+              <div className="lyfta-live-pill">
+                <i />
+                Live
+              </div>
             </div>
 
-            <div className="lyfta-hero-copy">
-              <span className="activity-label">Latest Gym Session</span>
-
-              <strong>
-                {lyfta.loading
-                  ? "Loading..."
-                  : lyfta.workout?.title || "No workout found"}
-              </strong>
-
-              <span>
-                {formatLyftaDate(
-                  lyfta.summary?.workout_perform_date ??
-                    lyfta.workout?.workout_perform_date
-                )}
-              </span>
+            <div className="lyfta-primary-stat">
+              <div>
+                <span>Total volume</span>
+                <strong>
+                  {(
+                    lyfta.summary?.total_volume ??
+                    lyfta.workout?.total_volume
+                  ) != null
+                    ? formatLyftaVolume(
+                        lyfta.summary?.total_volume ??
+                          lyfta.workout?.total_volume
+                      )
+                    : "—"}
+                </strong>
+              </div>
+              <span className="lyfta-stat-unit">kg</span>
             </div>
           </div>
 
-          <div className="lyfta-metrics">
-            <div>
-              <strong>
-                {(lyfta.summary?.total_volume ?? lyfta.workout?.total_volume) != null
-                  ? Number(
-                      lyfta.summary?.total_volume ?? lyfta.workout?.total_volume
-                    ).toLocaleString()
-                  : "—"}
-              </strong>
-              <span>Volume</span>
-            </div>
-
-            <div>
+          <div className="lyfta-stat-grid">
+            <div className="lyfta-stat-box">
+              <span>Duration</span>
               <strong>
                 {formatLyftaDuration(
                   lyfta.summary?.workout_duration ??
                     lyfta.workout?.workout_duration
                 )}
               </strong>
-              <span>Duration</span>
+              <small>Session time</small>
             </div>
 
-            <div>
-              <strong>
-                {getLyftaExerciseList(lyfta.workout).length || "—"}
-              </strong>
+            <div className="lyfta-stat-box">
               <span>Exercises</span>
+              <strong>
+                {getLyftaUniqueExerciseCount(lyfta.workout) || "—"}
+              </strong>
+              <small>Unique movements</small>
+            </div>
+
+            <div className="lyfta-stat-box">
+              <span>Total sets</span>
+              <strong>{getLyftaTotalSets(lyfta.workout) || "—"}</strong>
+              <small>Logged sets</small>
+            </div>
+
+            <div className="lyfta-stat-box">
+              <span>Avg / set</span>
+              <strong>
+                {(() => {
+                  const volume = Number(
+                    lyfta.summary?.total_volume ??
+                      lyfta.workout?.total_volume
+                  );
+                  const sets = getLyftaTotalSets(lyfta.workout);
+
+                  return Number.isFinite(volume) && sets
+                    ? formatLyftaVolume(volume / sets)
+                    : "—";
+                })()}
+              </strong>
+              <small>Volume per set</small>
             </div>
           </div>
 
           {getLyftaExerciseList(lyfta.workout).length > 0 && (
-            <div className="lyfta-exercises">
-              <span className="activity-label">Exercises</span>
+            <div className="lyfta-breakdown">
+              <div className="lyfta-breakdown-header">
+                <span>Workout breakdown</span>
+                <small>
+                  {getLyftaExerciseList(lyfta.workout).length} movements logged
+                </small>
+              </div>
 
-              {getLyftaExerciseList(lyfta.workout)
-                .slice(0, 4)
-                .map((exercise, index) => (
-                  <div className="lyfta-exercise-row" key={`${exercise?.exercise_id || exercise?.id || index}-${index}`}>
-                    <span>{exercise?.excercise_name || exercise?.name || "Exercise"}</span>
-                    <small>
-                      {Array.isArray(exercise?.sets)
-                        ? `${exercise.sets.length} sets`
-                        : "Workout"}
-                    </small>
-                  </div>
-                ))}
+              <div className="lyfta-exercise-list">
+                {getLyftaExerciseList(lyfta.workout)
+                  .slice(0, 4)
+                  .map((exercise, index) => {
+                    const exerciseName =
+                      exercise?.excercise_name ||
+                      exercise?.exercise_name ||
+                      exercise?.name ||
+                      "Exercise";
+                    const setCount = Array.isArray(exercise?.sets)
+                      ? exercise.sets.length
+                      : 0;
+
+                    return (
+                      <div
+                        className="lyfta-exercise-row"
+                        key={`${
+                          exercise?.exercise_id || exercise?.id || index
+                        }-${index}`}
+                      >
+                        <span className="lyfta-exercise-index">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <span className="lyfta-exercise-name">
+                          {exerciseName}
+                        </span>
+
+                        <span className="lyfta-exercise-sets">
+                          {setCount ? `${setCount} sets` : "—"}
+                        </span>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           )}
 
