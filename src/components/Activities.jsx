@@ -11,6 +11,7 @@ import {
   Code2,
   GraduationCap,
   Trophy,
+  Keyboard,
   Zap,
 } from "lucide-react";
 
@@ -24,6 +25,8 @@ const GITHUB_USERNAME = "NScoded";
 const CHESS_USERNAME = "nilesh0705";
 const DUOLINGO_USERNAME = "nilesh070501";
 const DUOLINGO_PROFILE_URL = `https://www.duolingo.com/profile/${DUOLINGO_USERNAME}`;
+const MONKEYTYPE_USERNAME = "NsCoded";
+const MONKEYTYPE_PROFILE_URL = `https://monkeytype.com/profile/${MONKEYTYPE_USERNAME}`;
 
 /* =========================================================
    LYFTA API
@@ -748,6 +751,87 @@ function formatGitHubDate(timestamp) {
 ========================================================= */
 
 function Activities() {
+  const [showHobbies, setShowHobbies] = useState(false);
+  const [monkeytype, setMonkeytype] = useState({
+    personalBest: null,
+    accuracy: null,
+    consistency: null,
+    mode: null,
+    bestDate: null,
+    loading: true,
+    error: null,
+  });
+
+  /* =======================================================
+     MONKEYTYPE PUBLIC PROFILE
+     Public profile data is used when Monkeytype has public
+     profiles enabled. No API key is placed in the browser.
+  ======================================================= */
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchMonkeytypeProfile = async () => {
+      try {
+        const response = await fetch(
+          `https://api.monkeytype.com/users/${encodeURIComponent(MONKEYTYPE_USERNAME)}/profile`,
+          { headers: { Accept: "application/json" } }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Monkeytype profile unavailable (${response.status})`);
+        }
+
+        const payload = await response.json();
+        const data = payload?.data || payload;
+        const personalBests =
+          data?.personalBests ||
+          data?.user?.personalBests ||
+          data?.profile?.personalBests ||
+          {};
+        const timeBests = Object.entries(personalBests?.time || {})
+          .flatMap(([mode, records]) => {
+            const items = Array.isArray(records) ? records : records ? [records] : [];
+            return items.map((record) => ({ ...record, mode }));
+          })
+          .filter((record) => Number.isFinite(Number(record.wpm)));
+
+        // Prefer the 60-second personal best for a stable typing-speed
+        // snapshot; otherwise use the fastest timed personal best available.
+        const sixtySecondBests = timeBests.filter((record) => String(record.mode) === "60");
+        const candidates = sixtySecondBests.length ? sixtySecondBests : timeBests;
+        const best = candidates.sort((a, b) => Number(b.wpm) - Number(a.wpm))[0] || null;
+
+        if (!best) {
+          throw new Error("No public typing personal best was found");
+        }
+
+        if (!cancelled) {
+          setMonkeytype({
+            personalBest: Number(best.wpm),
+            accuracy: best.acc == null ? null : Number(best.acc),
+            consistency: best.consistency == null ? null : Number(best.consistency),
+            mode: best.mode,
+            bestDate: best.timestamp || null,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setMonkeytype((previous) => ({
+            ...previous,
+            loading: false,
+            error: error?.message || "Monkeytype stats unavailable",
+          }));
+        }
+      }
+    };
+
+    fetchMonkeytypeProfile();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const [leetcode, setLeetcode] = useState({
     lastSolved: "Loading...",
     difficulty: "—",
@@ -1859,12 +1943,28 @@ function Activities() {
         />
 
         <StatCard
-          icon={<BookOpen size={24} />}
-          title="Learning"
-          value={dummyData.learning.value}
-          subtitle={dummyData.learning.subtitle}
-          change={dummyData.learning.change}
-          iconClass="learning"
+          icon={<Keyboard size={24} />}
+          title="Typing Speed"
+          value={
+            monkeytype.loading
+              ? "..."
+              : monkeytype.personalBest != null
+              ? `${monkeytype.personalBest} WPM`
+              : "—"
+          }
+          subtitle={
+            monkeytype.loading
+              ? "Syncing Monkeytype"
+              : monkeytype.mode
+              ? `${monkeytype.mode}s personal best`
+              : "Monkeytype profile"
+          }
+          change={
+            monkeytype.accuracy != null
+              ? `${monkeytype.accuracy}% accuracy`
+              : "View profile"
+          }
+          iconClass="monkeytype"
         />
 
       </div>
@@ -2087,6 +2187,7 @@ function Activities() {
             CHESS
         ================================================= */}
 
+        {showHobbies && (
         <div className="activity-panel chess-activity-panel">
 
           <SectionHeader
@@ -2248,6 +2349,8 @@ function Activities() {
           </div>
 
         </div>
+
+        )}
 
         {/* =================================================
             DUOLINGO
@@ -2432,9 +2535,115 @@ function Activities() {
         </div>
 
         {/* =================================================
+            MONKEYTYPE / TYPING
+        ================================================= */}
+
+        {showHobbies && (
+          <div className="activity-panel monkeytype-activity-panel">
+            <SectionHeader
+              icon={<Keyboard size={22} />}
+              title="Monkeytype"
+              action="View Profile"
+              href={MONKEYTYPE_PROFILE_URL}
+            />
+
+            <div className="monkeytype-speed-hero">
+              <div className="monkeytype-speed-copy">
+                <span className="activity-label">Personal best typing speed</span>
+                <div className="monkeytype-speed-value">
+                  {monkeytype.loading
+                    ? "..."
+                    : monkeytype.personalBest != null
+                    ? monkeytype.personalBest
+                    : "—"}
+                  <small>WPM</small>
+                </div>
+                <p>
+                  {monkeytype.mode
+                    ? `${monkeytype.mode}-second test · ${monkeytype.accuracy != null ? `${monkeytype.accuracy}% accuracy` : "accuracy not available"}`
+                    : "Your public Monkeytype typing profile"}
+                </p>
+              </div>
+              <div className="monkeytype-speed-mark" aria-hidden="true">
+                <Keyboard size={30} />
+                <span>TYPE</span>
+              </div>
+            </div>
+
+            <div className="monkeytype-stats-grid">
+              <div className="monkeytype-stat-box">
+                <span>Best WPM</span>
+                <strong>
+                  {monkeytype.loading
+                    ? "..."
+                    : monkeytype.personalBest != null
+                    ? monkeytype.personalBest
+                    : "—"}
+                </strong>
+                <small>{monkeytype.mode ? `${monkeytype.mode}s mode` : "Personal best"}</small>
+              </div>
+
+              <div className="monkeytype-stat-box">
+                <span>Accuracy</span>
+                <strong>
+                  {monkeytype.loading
+                    ? "..."
+                    : monkeytype.accuracy != null
+                    ? `${monkeytype.accuracy}%`
+                    : "—"}
+                </strong>
+                <small>Personal best run</small>
+              </div>
+
+              <div className="monkeytype-stat-box">
+                <span>Consistency</span>
+                <strong>
+                  {monkeytype.loading
+                    ? "..."
+                    : monkeytype.consistency != null
+                    ? `${monkeytype.consistency}%`
+                    : "—"}
+                </strong>
+                <small>Typing rhythm</small>
+              </div>
+
+              <div className="monkeytype-stat-box">
+                <span>Record date</span>
+                <strong className="monkeytype-date-value">
+                  {monkeytype.loading
+                    ? "..."
+                    : monkeytype.bestDate
+                    ? new Date(Number(monkeytype.bestDate)).toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "—"}
+                </strong>
+                <small>Personal best timestamp</small>
+              </div>
+            </div>
+
+            <div className="monkeytype-footer-row">
+              <span>Typing practice &amp; speed tracking</span>
+              <a href={MONKEYTYPE_PROFILE_URL} target="_blank" rel="noreferrer">
+                Open public profile <ArrowUpRight size={14} />
+              </a>
+            </div>
+
+            {monkeytype.error && (
+              <p className="monkeytype-api-note">
+                Live stats are unavailable from the public profile endpoint. Use the profile link to view your latest results.
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* =================================================
             LYFTA / GYM
         ================================================= */}
 
+        {showHobbies && (
         <div className="activity-panel lyfta-activity-panel">
           <SectionHeader
             icon={
@@ -2598,8 +2807,19 @@ function Activities() {
             </p>
           )}
         </div>
+        )}
 
       </div>
+
+      <button
+        type="button"
+        className={`show-hobbies-toggle ${showHobbies ? "is-open" : ""}`}
+        onClick={() => setShowHobbies((visible) => !visible)}
+        aria-expanded={showHobbies}
+      >
+        {showHobbies ? "Hide Hobbies" : "Show Hobbies"}
+        <span aria-hidden="true">{showHobbies ? "−" : "+"}</span>
+      </button>
 
     </section>
   );

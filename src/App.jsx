@@ -1,11 +1,9 @@
 import HeroSection from "./components/HeroSection";
 import Projects from "./components/Projects";
 import Activities from "./components/Activities";
-import About from "./components/About";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Achievements from "./components/Achievements";
-import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 
 import "./index.css";
@@ -31,6 +29,12 @@ function App() {
           <Activities />
         </section>
 
+        {/* =====================================================
+            EXPERIENCE
+        ===================================================== */}
+        <section id="experience">
+          <Experience />
+        </section>
 
         {/* =====================================================
             PROJECTS
@@ -39,12 +43,6 @@ function App() {
           <Projects />
         </section>
 
-        {/* =====================================================
-            ABOUT
-        ===================================================== */}
-        <section id="about">
-          <About />
-        </section>
 
 
         {/* =====================================================
@@ -54,29 +52,12 @@ function App() {
           <Skills />
         </section>
 
-
-        {/* =====================================================
-            EXPERIENCE
-        ===================================================== */}
-        <section id="experience">
-          <Experience />
-        </section>
+        
 
 
-        {/* =====================================================
-            ACHIEVEMENTS
-        ===================================================== */}
-        <section id="achievements">
-          <Achievements />
-        </section>
 
+        
 
-        {/* =====================================================
-            BLOG
-        ===================================================== */}
-        <section id="blog">
-          <Blog />
-        </section>
 
 
         {/* =====================================================
